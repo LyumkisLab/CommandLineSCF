@@ -15,16 +15,16 @@ positional arguments:<br />
 
 optional arguments: <br />
  -h, --help            show this help message and exit <br />
- --FourierRadius FOURIERRADIUS
-                       Fourier radius (int) of the shell on which sampling is evaluated
- --NumberToUse NUMBERTOUSE
-                       the number of projections to use, if you don't want to use all of them
- --3DFSCMap 3DFSCMAP   the 3DFSC map, if one wants to correlate Sampling/Resolution; currently not implemented
- --RootOutputName ROOTOUTPUTNAME
-                       the root name for logging outputs. Default is SCFAnalysis
- --TiltAngle TILTANGLE
-                       tilt angle
- --Sym SYM             symmetry: Icos, Oct, Tet, Cn, or Dn. If tilt specified, then Sym =C1  
+ --FourierRadius FOURIERRADIUS <br />
+                       Fourier radius (int) of the shell on which sampling is evaluated <br />
+ --NumberToUse NUMBERTOUSE <br />
+                       the number of projections to use, if you don't want to use all of them <br />
+ --3DFSCMap 3DFSCMAP   the 3DFSC map, if one wants to correlate Sampling/Resolution; currently not implemented <br />
+ --RootOutputName ROOTOUTPUTNAME <br />
+                       the root name for logging outputs. Default is SCFAnalysis <br />
+ --TiltAngle TILTANGLE <br />
+                       tilt angle <br />
+ --Sym SYM             symmetry: Icos, Oct, Tet, Cn, or Dn. If tilt specified, then Sym =C1   <br />
 
 ----------------------------------------------------------------------------------
 
