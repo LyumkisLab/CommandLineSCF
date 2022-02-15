@@ -106,12 +106,13 @@ parser.add_argument("--NumberToUse",       type=int, default=10000, help="the nu
 parser.add_argument("--3DFSCMap",        default='./', help=" the 3DFSC map, if one wants to correlate Sampling/Resolution; currently not implemented  ")
 parser.add_argument("--RootOutputName", default=DEFAULT_ROOT_STRING, help=" the root name for logging outputs. Default is SCFAnalysis ")
 parser.add_argument("--TiltAngle",       type=int,default=0, help="tilt angle")
+parser.add_argument("--Sym",       type=str,default='', help="symmetry: Icos, Oct, Tet, Cn, or Dn. If tilt specified, then Sym =C1")
 
 
 
 args                = parser.parse_args()
 
-print('finished constructing parser')
+# print('finished constructing parser')
 #%%
 
 FileName             = args.FileName
@@ -120,9 +121,17 @@ NumberToUse          = args.NumberToUse     # if we don't want to use all of the
 RootOutputName       = args.RootOutputName  # This will access all the files from the FSC side 
 ThreeDFSCMap         = args.RootOutputName  # If we want to look at correlations of ThreeDFSCMap
 TiltAngle            = args.TiltAngle;      # This is the TiltAngle
+SymNow               = args.Sym;         # This is Symmmetry but not number of C or D
 
 FileNamewPath= os.path.join(CurrentWD,FileName);
 print('FileNamewPath')  
+
+
+if (TiltAngle>0) & (len(SymNow)>0):
+    print('Symmetry ignored because Tilt was specified ')
+    SymNow='C'
+    
+if len(SymNow)==0: SymNow='C'
 
 NumberToUse=10000
 AnswerBrowse =    LibWidgetsNov2021.browse_button(FileNamewPath, NumberToUse)
@@ -140,7 +149,38 @@ logging.basicConfig(filename=RootOutputName+'.txt', level=logging.INFO)
 #_logger = logging.getLogger(__file__)
 #_logger.setLevel(logging.INFO)
 
+#%%
 
+#Reconfigure Symmetry
+ListOfKnownSymmetries = ['Icos','Oct','Tet']
+CSymNow =1
+
+if len(SymNow)>1:# Symmetry was declared, or it would be 'C'
+    if (SymNow[0] =='C') | (SymNow[0]=='D'):
+        CSymNowStr = SymNow[1:]
+        if CSymNowStr.isdigit():
+            CSymNow = np.int(CSymNowStr)
+            SymNow = SymNow[0]
+        else:
+            print('Illegal C or D symmetry')
+            sys.exit(0)
+    elif SymNow not in ListOfKnownSymmetries:
+        print('Unknown  symmetry')
+        print('Available symmetries are Icos, Oct, Tet, Cn or Dn')
+        sys.exit(0)
+        
+#%%
+
+if SymNow in ['C','D']:
+    print('Sym='+SymNow+' CSymNow='+str(CSymNow))
+    logging.info('Symmetry='+str(SymNow)+str(CSymNow))
+else:
+    print('Sym='+SymNow)
+    logging.info('Symmetry='+str(SymNow))
+    
+#sys.exit(0)    
+
+logging.info('Tilt='+str(TiltAngle))
 
 #%% 
 TiltInDegB      =TiltAngle
@@ -149,11 +189,13 @@ SpiralVec, NumFib =  LibWidgetsNov2021.CreateSpiral(FourierRadiusInt)
 
 NumberForEachTilt =90;
 #TiltInDegB =30;
-SymNow = 'C';
+if 0:
+    SymNow = 'C';
 
+# print(SymNow+' at line 157')
 Answer = LibWidgetsNov2021.get_InnerProdBooleanSum1(SpiralVec,OutPutAngles, \
                  FourierRadiusInt,NumberForEachTilt, \
-               AllProjPointsB4Sym,TiltInDegB, SymNow)
+               AllProjPointsB4Sym,TiltInDegB, SymNow,CSymNow)
 
 
 InnerProdBooleanSum0 = Answer[0]
