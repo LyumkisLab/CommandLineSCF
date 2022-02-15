@@ -478,6 +478,8 @@ def get_InnerProdBooleanSum1(SpiralVec,OutPutAngles,FourierRadiusInt, \
     ThetaVec = OutPutAngles[:,1]
     PhiVec   = OutPutAngles[:,2]
     
+    if 0: print(SymNow+' at line 480, LibWidgetsNov2021')
+    
     if TiltInDegB>0:
         TiltedNVecs= np.zeros_like(AllProjPoints)
         
@@ -515,7 +517,7 @@ def get_InnerProdBooleanSum1(SpiralVec,OutPutAngles,FourierRadiusInt, \
   
         InnerProdBooleanSum0,InnerProdBooleanSum1,AllProjAndTilts = \
             LibSphereWidgets.ReturnSamplingLoop(SpiralVec,TiltedNVecs,FourierRadiusInt,0,NumberForEachTilt)
-        print('Finished Calculating InnerProdBooleanSum1 at 518 in PlotProj')
+        if 0: print('Finished Calculating InnerProdBooleanSum1 at 518 in PlotProj')
         return   InnerProdBooleanSum0, InnerProdBooleanSum1, AllProjAndTilts,TiltedNVecs, AllProjPoints
       
         
@@ -527,6 +529,7 @@ def get_InnerProdBooleanSum1(SpiralVec,OutPutAngles,FourierRadiusInt, \
         NVecs0= LibSphereWidgets.AnglesToVecsOctahedral(AllProjPoints,-1);
     # PRB needs to import this from Relion files
     elif SymNow == "Tet" :
+        if 0: print('Tet at line 531')
         NVecs0= LibSphereWidgets.AnglesToVecsTetrahedral(AllProjPoints,-1);
     elif SymNow == "D":
         CorD=2;
@@ -552,7 +555,7 @@ def get_InnerProdBooleanSum1(SpiralVec,OutPutAngles,FourierRadiusInt, \
     InnerProdBooleanSum0,InnerProdBooleanSum1,AllProjAndTilts = \
         LibSphereWidgets.ReturnSamplingLoop(SpiralVec,NVecs0,FourierRadiusInt,0,NumberForEachTilt)
         
-    print('Finished Calculating InnerProdBooleanSum1 at 553 in PlotProj')
+    if 0: print('Finished Calculating InnerProdBooleanSum1 at 553 in PlotProj')
     
     return  InnerProdBooleanSum0, InnerProdBooleanSum1, AllProjAndTilts,TiltedNVecs, AllProjPoints
     
@@ -657,7 +660,7 @@ def PlotSamp(InnerProdBooleanSum1 , FolderPath,  FigDpi,FourierRadiusInt, FileNa
     #plt.show(axSampScatter)
     cbar = figureSamp.colorbar(axSampScatter,ticks=[0,1/3,2/3,1],pad=0.2)
     cbar.ax.set_yticklabels([pnt0str,pnt1str, pnt2str, pnt3str])  # vertically oriented colorbar
-    print('Made Changes')
+    #print('Made Changes')
     plt.savefig(SaveFigName, dpi=FigDpi)
 
     GoodVoxels= np.where(InnerProdBooleanSum1>0)[0];
