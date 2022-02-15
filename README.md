@@ -16,9 +16,9 @@ positional arguments:<br />
 optional arguments: <br />
  -h, --help            show this help message and exit <br />
  --FourierRadius FOURIERRADIUS <br />
-   &nbsp &nbsp Fourier radius (int) of the shell on which sampling is evaluated <br />
+   &nbsp; &nbsp; Fourier radius (int) of the shell on which sampling is evaluated <br />
  --NumberToUse NUMBERTOUSE <br />
-      &nbsp &nbsp          the number of projections to use, if you don't want to use all of them <br />
+      &nbsp; &nbsp;          the number of projections to use, if you don't want to use all of them <br />
  --3DFSCMap 3DFSCMAP   the 3DFSC map, if one wants to correlate Sampling/Resolution; currently not implemented <br />
  --RootOutputName ROOTOUTPUTNAME <br />
                 the root name for logging outputs. Default is SCFAnalysis <br />
